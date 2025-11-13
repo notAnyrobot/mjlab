@@ -11,7 +11,7 @@ from mjlab.third_party.isaaclab.isaaclab.utils.string import (
 )
 
 if TYPE_CHECKING:
-  from mjlab.envs.manager_based_env import ManagerBasedEnv
+  from mjlab.envs import ManagerBasedRlEnv
   from mjlab.envs.mdp.actions import actions_config
 
 
@@ -20,7 +20,7 @@ class JointAction(ActionTerm):
 
   _asset: Entity
 
-  def __init__(self, cfg: actions_config.JointActionCfg, env: ManagerBasedEnv):
+  def __init__(self, cfg: actions_config.JointActionCfg, env: ManagerBasedRlEnv):
     super().__init__(cfg=cfg, env=env)
 
     joint_ids, joint_names = self._asset.find_joints(
@@ -90,7 +90,9 @@ class JointAction(ActionTerm):
 
 
 class JointPositionAction(JointAction):
-  def __init__(self, cfg: actions_config.JointPositionActionCfg, env: ManagerBasedEnv):
+  def __init__(
+    self, cfg: actions_config.JointPositionActionCfg, env: ManagerBasedRlEnv
+  ):
     super().__init__(cfg=cfg, env=env)
 
     if cfg.use_default_offset:
@@ -103,7 +105,9 @@ class JointPositionAction(JointAction):
 
 
 class JointVelocityAction(JointAction):
-  def __init__(self, cfg: actions_config.JointVelocityActionCfg, env: ManagerBasedEnv):
+  def __init__(
+    self, cfg: actions_config.JointVelocityActionCfg, env: ManagerBasedRlEnv
+  ):
     super().__init__(cfg=cfg, env=env)
 
     if cfg.use_default_offset:
@@ -116,7 +120,7 @@ class JointVelocityAction(JointAction):
 
 
 class JointEffortAction(JointAction):
-  def __init__(self, cfg: actions_config.JointEffortActionCfg, env: ManagerBasedEnv):
+  def __init__(self, cfg: actions_config.JointEffortActionCfg, env: ManagerBasedRlEnv):
     super().__init__(cfg=cfg, env=env)
 
   def apply_actions(self) -> None:
